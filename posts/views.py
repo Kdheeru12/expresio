@@ -77,6 +77,9 @@ def blogs(request):
         'common_tags':common_tags,
     }
     return render(request,'blog.html',context)
+
+def rooms(request):
+    return render(request,'rooms.html')
 def signup(request):
     if request.method == 'POST':
         first_name = request.POST['first']

@@ -15,13 +15,14 @@ class PostForm(forms.ModelForm):
             "categories",
             "draft",
             "make_private",
+            'room'
         ]
         widgets = {
+            "room": forms.Select(attrs={'class':'form-control'}),
             "title": forms.TextInput(attrs={'class':'form-control'}),
             "tags": forms.TextInput(attrs={'class':'form-control'}),
             "categories": forms.Select(attrs={'class':'form-control'}),
             "content": CKEditor5Widget()
-
         }
 class UserprofileForm(forms.ModelForm):
     class Meta:
