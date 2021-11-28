@@ -111,7 +111,7 @@
                                 <nav>
                                     <ul class="nav navbar-nav navbar-right">
                                         <li><a  href="/">HOME</a></li>
-                                        <li><a  href="/blogs">EXPLORE BLOGS</a></li>
+                                        <li><a  href="/rooms">EXPLORE BLOGS</a></li>
                                         <li><a  href="/login">LOGIN</a></li>
                                         <li><a href="/contact-us" class="nav-link" target="_blank">CONTACT</a></li>
                                     </ul>
@@ -146,7 +146,7 @@
     <div class="bredcrumb-box">
         <a href="/">Home</a>
         <span class="lnr lnr-arrow-right"></span>
-        <a href="/blogs">Blog</a>
+        <a href="/rooms">Blog</a>
     </div>
 </div>
 <!--Breadcrumb Ends -->
@@ -254,7 +254,7 @@
             <div class="widget widget-post-categories">
                 <h3>Post Categories</h3>
                 <ul class="post-categorie">
-                    <form action="/blogs">
+                    <form action="{{request.path}}">
                      <li><input style="color: black;" id='search-bar' type='submit' placeholder='Search...' autocomplete="off" name="query" value="Art & Culture"/></li>
                      <li><input style="color: black;" id='search-bar' type='submit' placeholder='Search...' autocomplete="off" name="query" value="Beauty & Fashion"/></li>
                      <li><input style="color: black;" id='search-bar' type='submit' placeholder='Search...' autocomplete="off" name="query" value="Sports"/></li>
@@ -262,6 +262,16 @@
                      <li><input style="color: black;" id='search-bar' type='submit' placeholder='Search...' autocomplete="off" name="query" value="Technology"/></li>
                      <li><input style="color: black;" id='search-bar' type='submit' placeholder='Search...' autocomplete="off" name="query" value="Economic"/></li>
                     </form>
+                </ul>
+            </div>
+
+            <div class="widget widget-post-categories">
+                <h3>Switch Rooms</h3>
+                <ul class="post-categorie">
+                    
+                    {% for room in rooms %}
+                     <li><a href="/blogs/{{ room.id }}">{{ room.name }} <input style="color: black;" id='search-bar' type='submit' placeholder='Search...' autocomplete="off" name="query" value="{{room.title}}"/> </a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="widget widget-tags">

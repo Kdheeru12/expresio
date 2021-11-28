@@ -82,7 +82,7 @@
                                     <ul class="nav navbar-nav navbar-right">
                                         <li><a href="/createpost">CREATE POST</a></li>
                                         <li><a href="/myposts">MY BLOGS</a></li>
-                                        <li><a href="/blogs">EXPLORE BLOGS</a></li>
+                                        <li><a href="/rooms">EXPLORE BLOGS</a></li>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">PROFILE<b class="caret"></b></a>
                                             <ul class="dropdown-menu">
@@ -100,7 +100,7 @@
                              <div class="navbar-collapse collapse">
                                 <nav>
                                     <ul class="nav navbar-nav navbar-right">
-                                        <li><a  href="/blogs">EXPLORE BLOGS</a></li>
+                                        <li><a  href="/rooms">EXPLORE BLOGS</a></li>
                                         <li><a  href="/login">LOGIN</a></li>
                                         <li><a class="smooth_scroll" href="#feature">FEATURES</a></li>
                                         <li><a class="smooth_scroll" href="#screenshot">OUR TEAM</a></li>
@@ -158,9 +158,7 @@
 
                 <div class="col-md-12 text-center">
                     <div class="section-title">
-                        <h2>EXPRESIO ALL FEATURES</h2>
-                        <p>Expresio is designed for everyone foreground accessibility,performance security and ease of use</p>
-
+                        <h2>Rooms</h2>
                     </div>
                 </div>
             </div>
@@ -171,24 +169,29 @@
                 <!-- Pricing Table -->
 
                 <!-- Pricing Table -->
+                {% for room in rooms %}
                 <div class="col-md-4 col-sm-6">
                     <div class="price-item featured" data-connectors="1">
                         <div class="info">
-                            <h3>WE OFFER</h3>
+                            <h3>{{room.title}}</h3>
                         </div>
                           <div class="features">
-                            <p>FOR ALL USERS</p>
                             <ul>
-                                <li>EASY LOGIN AND SETUP </li>
-                                <li>AMAZING BLOGS TO READ</li>
-                                <li>DIFFERENT FONT STYLES</li>
-                                <li>EASY LIKE AND COMMENT</li>
-                                <li>EASY SHARE</li>
+                                <li>{{room.description}} </li>
+                                {% if room.type_of == 'OTA'%}
+                                <li> Public</li>
+                                {% else %}
+                                <li> Private</li>
+                                {% endif %}
                             </ul>
                           </div>
-                       <a class="btn" href="login">LOGIN</a>
+                       <a class="btn" href="/blogs/{{room.id}}">View Posts</a>
+                       <a class="btn" href="login">Join Video</a>
+
+                       
                     </div>
                 </div>
+                {% endfor %}
 
                 <!-- Pricing Table -->
 
@@ -231,49 +234,6 @@
     <!-- Footer area starts -->
     <footer>
 
-        <div class="footer-widget-area section-big">
-            <div class="container">
-                <div class="row">
-
-                    <!-- Footer Widget -->
-                    <div class="col-md-3">
-                        <div class="footer-widget">
-                            <h3>EXPRESIO</h3>
-                            <p>Thankyou for your support,contributions and all other kinds of participation in this amazing new beginning of Expresio!</p>
-                            <p>BY DHEERAJ REDDY KONDAKINDI</p>
-                        </div>
-                    </div>
-
-                    <!-- Footer Widget -->
-                    <!-- Footer Widget -->
-                    <!-- Footer Widget -->
-                    <div class="col-md-3">
-                        <div class="footer-widget">
-                            <h3>About EXPRESIO</h3>
-                            <div class="address">
-                                <div class="address-box clearfix">
-                                    <span class="lnr lnr-home"></span>
-                                    <p>HYDERABAD TELANGANA INDIA</p>
-                                </div>
-                                <div class="address-box clearfix">
-                                    <span class="lnr lnr-phone"></span>
-                                    <p><a href="tel:9381132562">9381132562</a>
-                                    <br>
-                                    <a href="tel:015110022"></a></p>
-                                </div>
-                                <div class="address-box clearfix">
-                                    <span class="lnr lnr-envelope"></span>
-                                    <p><a href="mailto:noreply.blogzz@gmail.com">noreply.blogzz@gmail.com</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
 
         <div class="clearfix"></div>
 

@@ -219,7 +219,7 @@ class LIEF_API Parser : public LIEF::Parser {
 
     //! @brief Parse Symbols's GNU hash
     //!
-    //! @see https://blogs.oracle.com/ali/entry/gnu_hash_elf_sections
+    //! @see https://rooms.oracle.com/ali/entry/gnu_hash_elf_sections
     template<typename ELF_T>
     void parse_symbol_gnu_hash(uint64_t offset);
 

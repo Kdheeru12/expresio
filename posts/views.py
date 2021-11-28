@@ -22,6 +22,7 @@ import os
 import json
 from django.http import HttpResponse,JsonResponse
 from taggit.models import Tag
+from api.models import Room
 def homepage(request):
     """
     post=Post.objects.all()
@@ -52,15 +53,16 @@ def homepage(request):
             instanace.is_staff = True
             instanace.save()
     return render(request,'index2.html',{'feed':feed})
-def blogs(request):
-    post=Post.objects.filter(draft=False,make_private=False)
-    post_list = Post.objects.filter(draft=False,make_private=False)
+def blogs(request,id=None):
+    post=Post.objects.filter(draft=False,make_private=False,room_id=id)
+    post_list = Post.objects.filter(draft=False,make_private=False,room_id=id)
     query = request.GET.get("q")
     query1 = request.GET.get("query")
+    rooms = Room.objects.all()
     if query1:
         categories = get_object_or_404(Categories,categories=query1)
-        post=Post.objects.filter(draft=False,make_private=False,categories=categories)
-        post_list = Post.objects.filter(draft=False,make_private=False,categories=categories)
+        post=Post.objects.filter(draft=False,make_private=False,categories=categories,room_id=id)
+        post_list = Post.objects.filter(draft=False,make_private=False,categories=categories,room_id=id)
         print(post)
     elif query:
         post_list = post_list.filter(
@@ -75,11 +77,14 @@ def blogs(request):
     context = {
         'post':post,
         'common_tags':common_tags,
+        'rooms':rooms,
     }
     return render(request,'blog.html',context)
 
 def rooms(request):
-    return render(request,'rooms.html')
+    rooms = Room.objects.all()
+    print(rooms)
+    return render(request,'rooms.html',{'rooms':rooms})
 def signup(request):
     if request.method == 'POST':
         first_name = request.POST['first']
