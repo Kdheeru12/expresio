@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '6bw7+h390-zuhq0tx_u-zzo2=^m*0+pco%@8hrf$injme_x!*e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['*']
 SITE_ID = 1
 INSTALLED_APPS = [
     'posts.apps.PostsConfig',
+    'api',
+    'video_signalling',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +47,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'ckeditor',
     'django_ckeditor_5',
-    'taggit'
+    'taggit',
+    'channels',
+    'corsheaders',
+    'rest_framework'
 
 ]
 
@@ -54,6 +59,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -62,6 +68,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'blog.urls'
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 
 LOGIN_REDIRECT_URL = '/'
@@ -143,6 +152,9 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+ASGI_APPLICATION = "blog.asgi.application"
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -162,8 +174,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-STATIC_ROOT = '/home/dheeru/blog/static'
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 MEDIA_URL = '/media/'
@@ -180,6 +192,27 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
 
 EMAIL_USE_TLS = True
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication"
+    ],
+    "DEFAULT_RENDERER_CLASSES": (
+        "djangorestframework_camel_case.render.CamelCaseJSONRenderer",
+        "djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer",
+    ),
+    "DEFAULT_PARSER_CLASSES": (
+        "djangorestframework_camel_case.parser.CamelCaseFormParser",
+        "djangorestframework_camel_case.parser.CamelCaseMultiPartParser",
+        "djangorestframework_camel_case.parser.CamelCaseJSONParser",
+    ),
+    "JSON_UNDERSCOREIZE": {"no_underscore_before_number": True},
+}
+
+channel_layer =  {"BACKEND": "channels.layers.InMemoryChannelLayer"}
+
+CHANNEL_LAYERS = {"default": channel_layer}
 
 
 customColorPalette = [
@@ -208,6 +241,7 @@ customColorPalette = [
             'label': 'Blue'
         },
     ]
+
 
 CKEDITOR_5_CUSTOM_CSS = 'path_to.css' # optional
 CKEDITOR_5_CONFIGS = {

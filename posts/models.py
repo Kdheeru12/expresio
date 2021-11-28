@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 import datetime
 from taggit.managers import TaggableManager
 from ckeditor.fields import RichTextField
+from api.models import Room
 # Create your models here.
 class Categories(models.Model):
     categories=models.CharField(max_length=100,unique=True)
@@ -33,6 +34,7 @@ class Post(models.Model):
     tags = TaggableManager(blank=True)
     categories = models.ForeignKey(Categories,blank=True,null=True,on_delete=models.CASCADE)
     countlikes = models.IntegerField(blank=True,null=True)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE, blank=True, null=True)
     def __unicode__(self):
         return self.title
     def __str__(self):
