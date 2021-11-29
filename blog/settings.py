@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'taggit',
     'channels',
     'corsheaders',
-    'rest_framework'
+    'rest_framework',
+    'chatroom',
 
 ]
 
